@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super Sparkly Unicorn and Kitten Nitrox MOD Calculator</title>
+    <title>Enchanted Nitrox MOD Calculator</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
 
@@ -140,8 +140,8 @@
     <div class="container">
         <div class="rainbow"></div>
         <h1>🦄 Enchanted MOD Calculator 🐱</h1>
-        <input type="number" id="nitroxPercentage" placeholder="Enter Nitrox percentage (21-100)">
-        <button onclick="calculateMOD()">Calculate Magic MOD ✨</button>
+        <input type="number" id="nitroxPercentage" placeholder="enter nitrox % (21-100)">
+        <button onclick="calculateMOD()">✨calculate✨</button>
         <div id="result"></div>
     </div>
 
@@ -161,8 +161,8 @@
 
             resultDiv.innerHTML = `
                 For ${nitroxPercentage}% Magical Nitrox:<br>
-                Magic MOD for back gas (PPO2 1.4): ${modBackGas.toFixed(1)} feet 🌈<br>
-                Magic MOD for deco gas (PPO2 1.6): ${modDecoGas.toFixed(1)} feet 🦄
+                back gas (PPO2 1.4): ${modBackGas.toFixed(1)} feet 🌈<br>
+                deco gas (PPO2 1.6): ${modDecoGas.toFixed(1)} feet 🦄
             `;
 
             createSparkles(100);
