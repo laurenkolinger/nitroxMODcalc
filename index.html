@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enchanted Nitrox MOD Calculator</title>
+    <title>Enchanted MOD Calculator</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
 
@@ -29,7 +29,7 @@
         .container {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
-            padding: 30px;
+            padding: 20px;
             box-shadow: 0 0 20px rgba(255, 105, 180, 0.7);
             max-width: 400px;
             width: 100%;
@@ -41,7 +41,7 @@
 
         h1 {
             color: #ff69b4;
-            font-size: 26px;
+            font-size: 25px;
             margin-bottom: 20px;
             text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.5);
             position: relative;
@@ -139,7 +139,7 @@
 <body>
     <div class="container">
         <div class="rainbow"></div>
-        <h1>🦄 Enchanted MOD Calculator 🐱</h1>
+        <h1>🦄 find ur MOD 🐱</h1>
         <input type="number" id="nitroxPercentage" placeholder="enter nitrox % (21-100)">
         <button onclick="calculateMOD()">✨calculate✨</button>
         <div id="result"></div>
@@ -151,7 +151,7 @@
             const resultDiv = document.getElementById('result');
 
             if (isNaN(nitroxPercentage) || nitroxPercentage < 21 || nitroxPercentage > 100) {
-                resultDiv.innerHTML = "Oopsie! 🙈 Nitrox percentage must be between 21 and 100";
+                resultDiv.innerHTML = "gurl plz 🙈 percentage must be between 21 and 100";
                 return;
             }
 
@@ -160,7 +160,7 @@
             const modDecoGas = ((1.6 / fO2) - 1) * 33;
 
             resultDiv.innerHTML = `
-                For ${nitroxPercentage}% Magical Nitrox:<br>
+                For ${nitroxPercentage}% Nitrox:<br>
                 back gas (PPO2 1.4): ${modBackGas.toFixed(1)} feet 🌈<br>
                 deco gas (PPO2 1.6): ${modDecoGas.toFixed(1)} feet 🦄
             `;
