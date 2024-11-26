@@ -1,208 +1,366 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enchanted MOD Calculator</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
-
         body {
-            font-family: 'Comic Neue', cursive;
-            background: linear-gradient(45deg, #ff9ff3, #feca57, #ff6b6b, #48dbfb, #ff9ff3);
-            background-size: 400% 400%;
-            animation: gradient 15s ease infinite;
-            height: 100vh;
-            margin: 0;
+            background: #ffebf3;
+            background-image: linear-gradient(45deg, #ffebf3 25%, #f0f9ff 25%, #f0f9ff 50%, #ffebf3 50%, #ffebf3 75%, #f0f9ff 75%, #f0f9ff 100%);
+            background-size: 56.57px 56.57px;
+            font-family: 'Comic Sans MS', cursive;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            overflow: hidden;
-        }
-
-        @keyframes gradient {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
         }
 
         .container {
             background: rgba(255, 255, 255, 0.9);
             border-radius: 20px;
             padding: 20px;
-            box-shadow: 0 0 20px rgba(255, 105, 180, 0.7);
-            max-width: 400px;
-            width: 100%;
+            margin: 20px;
+            max-width: 600px;
+            box-shadow: 0 0 15px rgba(255, 182, 193, 0.5);
+            z-index: 1;
             position: relative;
-            overflow: hidden;
-            text-align: center;
-            z-index: 10;
+        }
+
+        .rainbow {
+            background: linear-gradient(45deg, #ffd1dc, #bae1ff, #ffffba, #baffc9);
+            padding: 4px;
+            border-radius: 15px;
+            margin: 10px 0;
+            animation: rainbow-pulse 3s infinite;
+        }
+
+        @keyframes rainbow-pulse {
+            0% { box-shadow: 0 0 10px rgba(255, 182, 193, 0.5); }
+            50% { box-shadow: 0 0 20px rgba(186, 225, 255, 0.5); }
+            100% { box-shadow: 0 0 10px rgba(255, 182, 193, 0.5); }
         }
 
         h1 {
             color: #ff69b4;
-            font-size: 25px;
-            margin-bottom: 20px;
-            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.5);
-            position: relative;
-            z-index: 5;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(255, 105, 180, 0.3);
+            margin: 10px 0;
         }
 
-        input, button {
+        .calculator {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+        }
+
+        .input-group {
+            margin: 15px 0;
+        }
+
+        select, input {
             width: 100%;
             padding: 10px;
-            margin: 10px 0;
-            border: 3px solid #ff69b4;
-            border-radius: 10px;
-            box-sizing: border-box;
+            border: 2px solid #ff69b4;
+            border-radius: 25px;
             font-size: 16px;
-            font-family: 'Comic Neue', cursive;
-            position: relative;
-            z-index: 5;
+            background: white;
+            color: #444;
+            margin: 5px 0;
+            font-family: 'Comic Sans MS', cursive;
         }
 
-        button {
-            background-color: #ff69b4;
+        select:focus, input:focus {
+            outline: none;
+            box-shadow: 0 0 10px rgba(255, 105, 180, 0.5);
+        }
+
+        .calc-button {
+            background: #ff69b4;
             color: white;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        button:hover {
-            background-color: #ff1493;
-            transform: scale(1.05);
-        }
-
-        #result {
-            margin-top: 20px;
-            font-weight: bold;
+            border: none;
+            border-radius: 25px;
+            padding: 12px 30px;
             font-size: 18px;
+            cursor: pointer;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+            font-family: 'Comic Sans MS', cursive;
+        }
+
+        .calc-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(255, 105, 180, 0.7);
+        }
+
+        .result {
+            background: linear-gradient(135deg, #ffd6e7, #c6f7ff);
+            padding: 15px;
+            border-radius: 15px;
+            margin-top: 15px;
+            border: 2px dashed #ff69b4;
+        }
+
+        .result h3 {
             color: #ff69b4;
-            position: relative;
-            z-index: 5;
-            background-color: rgba(255, 255, 255, 0.8);
+            margin: 0 0 10px 0;
+        }
+
+        .equation {
+            font-style: italic;
+            color: #666;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+
+        .output {
+            font-size: 18px;
+            color: #444;
+            margin: 10px 0;
+        }
+
+        .warning {
+            background: #ffe6e6;
+            border-left: 4px solid #ff69b4;
             padding: 10px;
-            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 14px;
+            color: #444;
         }
 
-        .sparkle {
+        .decoration {
             position: fixed;
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            opacity: 0;
-            animation: sparkle 1.5s infinite;
             pointer-events: none;
-        }
-
-        @keyframes sparkle {
-            0% { opacity: 0; transform: scale(0) rotate(0deg); }
-            50% { opacity: 1; transform: scale(1) rotate(180deg); }
-            100% { opacity: 0; transform: scale(0) rotate(360deg); }
-        }
-
-        .unicorn, .kitten {
-            position: fixed;
-            font-size: 40px;
-            animation: float 6s ease-in-out infinite;
-            pointer-events: none;
+            font-size: 24px;
+            animation: float linear infinite;
+            z-index: 0;
         }
 
         @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-20px); }
-            100% { transform: translateY(0px); }
-        }
-
-        .rainbow {
-            position: absolute;
-            top: -50px;
-            left: -50px;
-            right: -50px;
-            height: 100px;
-            background: linear-gradient(
-                to bottom,
-                violet, indigo, blue, green, yellow, orange, red
-            );
-            border-radius: 100%;
-            opacity: 0.3;
-            animation: rainbow-move 5s linear infinite;
-            pointer-events: none;
-        }
-
-        @keyframes rainbow-move {
-            0% { transform: translateY(-100%); }
-            100% { transform: translateY(400%); }
+            0% { transform: translateY(-20vh) rotate(0deg); }
+            100% { transform: translateY(120vh) rotate(360deg); }
         }
     </style>
 </head>
 <body>
+    <!-- MOD Calculator Container -->
     <div class="container">
-        <div class="rainbow"></div>
-        <h1>🦄 find ur MOD 🐱</h1>
-        <input type="number" id="nitroxPercentage" placeholder="enter nitrox % (21-100)">
-        <button onclick="calculateMOD()">✨calculate✨</button>
-        <div id="result"></div>
+        <div class="rainbow">
+            <div class="calculator">
+                <h1>🦄 MOD Calculator 🐱</h1>
+                <div class="input-group">
+                    <select id="ppo2Select">
+                        <option value="">Select Gas Type</option>
+                        <option value="1.4">Back Gas (PPO2 1.4)</option>
+                        <option value="1.6">Deco Gas (PPO2 1.6)</option>
+                        <option value="custom">Custom PPO2</option>
+                    </select>
+                </div>
+
+                <div id="customPpo2" class="input-group hidden">
+                    <input type="number" id="customPpo2Input" 
+                           placeholder="Enter custom PPO2" step="0.1" min="0.21" max="2.0">
+                </div>
+
+                <div class="input-group">
+                    <input type="number" id="fo2" 
+                           placeholder="Enter O2 percentage (e.g., 32 for 32%)" 
+                           step="1" min="21" max="100">
+                </div>
+
+                <button id="calculateMOD" class="calc-button">✨ Calculate MOD ✨</button>
+
+                <div class="result">
+                    <h3>✨ Your MOD Result ✨</h3>
+                    <div class="output">
+                        <p>🌊 Maximum Operating Depth: <span id="modFeet">-</span>ft</p>
+                    </div>
+                    <p class="equation">MOD = (PPO2 × 33) / (FO2/100)</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Gas Calculator Container -->
+    <div class="container">
+        <div class="rainbow">
+            <div class="calculator">
+                <h1>🎈 Gas Calculator 🎀</h1>
+                
+                <div class="input-group">
+                    <select id="tankSelect">
+                        <option value="">Select Tank Type</option>
+                        <option value="steel120">Steel 120 (3445 PSI max)</option>
+                        <option value="deco40">Deco 40 (3000 PSI max)</option>
+                        <option value="al80">AL80 (3000 PSI max)</option>
+                        <option value="custom">Custom Tank</option>
+                    </select>
+                </div>
+
+                <div id="customTankFields" class="hidden">
+                    <div class="input-group">
+                        <input type="number" id="customVtank" 
+                               placeholder="Tank volume (cubic feet)">
+                    </div>
+                    <div class="input-group">
+                        <input type="number" id="customPsiMax" 
+                               placeholder="Maximum PSI rating">
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <input type="number" id="currentPsi" 
+                           placeholder="Current PSI">
+                </div>
+
+                <div class="input-group">
+                    <input type="number" id="gasNeeded" 
+                           placeholder="Required gas (from deco planner)">
+                </div>
+
+                <button id="calculateGas" class="calc-button">✨ Calculate Gas ✨</button>
+
+                <div class="result">
+                    <h3>✨ Gas Results ✨</h3>
+                    <div class="output">
+                        <p>🎈 Available: <span id="availableGas">-</span> cf</p>
+                        <p>🎈 Required (×1): <span id="requiredGas">-</span> cf</p>
+                        <p>🎈 Required (×1.5): <span id="requiredGasThirds">-</span> cf</p>
+                    </div>
+                    <p class="equation">V<sub>available</sub> = V<sub>tank</sub> × PSI<sub>current</sub>/PSI<sub>max</sub></p>
+                    <p id="sufficiencyCheck"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="warning">
+        <strong>✨ Safety Note ✨</strong>
+        <p>This calculator is for reference only. Always verify calculations with proper equations and tables.
+        Use only with appropriate training and certification level.</p>
     </div>
 
     <script>
+        // Tank configurations
+        const tankConfigs = {
+            steel120: { vtank: 120, psiMax: 3445 },
+            deco40: { vtank: 40, psiMax: 3000 },
+            al80: { vtank: 80, psiMax: 3000 }
+        };
+
+        // Create floating decorations
+        function createDecorations(count = 10) {
+            const decorations = ['🦄', '🐱', '✨', '🎀', '🌈', '💕', '🌸'];
+            for (let i = 0; i < count; i++) {
+                const decoration = document.createElement('div');
+                decoration.className = 'decoration';
+                decoration.textContent = decorations[Math.floor(Math.random() * decorations.length)];
+                decoration.style.left = Math.random() * 100 + 'vw';
+                decoration.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                document.body.appendChild(decoration);
+                
+                setTimeout(() => decoration.remove(), 5000);
+            }
+        }
+
+        // MOD Calculator
         function calculateMOD() {
-            const nitroxPercentage = parseFloat(document.getElementById('nitroxPercentage').value);
-            const resultDiv = document.getElementById('result');
-
-            if (isNaN(nitroxPercentage) || nitroxPercentage < 21 || nitroxPercentage > 100) {
-                resultDiv.innerHTML = "gurl plz 🙈 percentage must be between 21 and 100";
-                return;
+            const ppo2Select = document.getElementById('ppo2Select');
+            const customPpo2Input = document.getElementById('customPpo2Input');
+            const fo2Input = document.getElementById('fo2');
+            
+            let ppo2;
+            if (ppo2Select.value === 'custom') {
+                ppo2 = parseFloat(customPpo2Input.value);
+            } else {
+                ppo2 = parseFloat(ppo2Select.value);
             }
 
-            const fO2 = nitroxPercentage / 100;
-            const modBackGas = ((1.4 / fO2) - 1) * 33;
-            const modDecoGas = ((1.6 / fO2) - 1) * 33;
+            const fo2Percent = parseFloat(fo2Input.value) || 0;
+            const fo2 = fo2Percent / 100;
 
-            resultDiv.innerHTML = `
-                For ${nitroxPercentage}% Nitrox:<br>
-                back gas (PPO2 1.4): ${modBackGas.toFixed(1)} feet 🌈<br>
-                deco gas (PPO2 1.6): ${modDecoGas.toFixed(1)} feet 🦄
-            `;
-
-            createSparkles(100);
-            createCharacters(10, '🦄');
-            createCharacters(10, '🐱');
-        }
-
-        function createSparkles(count) {
-            for (let i = 0; i < count; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.style.left = `${Math.random() * 100}%`;
-                sparkle.style.top = `${Math.random() * 100}%`;
-                sparkle.style.animationDelay = `${Math.random() * 2}s`;
-                sparkle.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-                document.body.appendChild(sparkle);
-                setTimeout(() => sparkle.remove(), 1500);
+            if (fo2 > 0 && ppo2 > 0) {
+                // Correct MOD calculation
+                const modFeet = (ppo2 * 33) / fo2;
+                document.getElementById('modFeet').textContent = modFeet.toFixed(1);
+                createDecorations(25); // Spawn extra decorations on calculation
             }
         }
 
-        function createCharacters(count, emoji) {
-            for (let i = 0; i < count; i++) {
-                const character = document.createElement('div');
-                character.className = emoji === '🦄' ? 'unicorn' : 'kitten';
-                character.textContent = emoji;
-                character.style.left = `${Math.random() * 100}%`;
-                character.style.top = `${Math.random() * 100}%`;
-                character.style.animationDelay = `${Math.random() * 2}s`;
-                document.body.appendChild(character);
-                setTimeout(() => character.remove(), 6000);
+        // Gas Calculator
+        function calculateGas() {
+            const tankSelect = document.getElementById('tankSelect');
+            const currentPsi = parseFloat(document.getElementById('currentPsi').value) || 0;
+            const gasNeeded = parseFloat(document.getElementById('gasNeeded').value) || 0;
+            
+            let vtank, psiMax;
+            
+            if (tankSelect.value === 'custom') {
+                vtank = parseFloat(document.getElementById('customVtank').value) || 0;
+                psiMax = parseFloat(document.getElementById('customPsiMax').value) || 0;
+            } else {
+                const config = tankConfigs[tankSelect.value];
+                vtank = config.vtank;
+                psiMax = config.psiMax;
             }
+
+            const availableGas = (vtank * currentPsi / psiMax).toFixed(1);
+            const requiredGas = gasNeeded.toFixed(1);
+            const requiredGasWithThirds = (gasNeeded * 1.5).toFixed(1);
+
+            document.getElementById('availableGas').textContent = availableGas;
+            document.getElementById('requiredGas').textContent = requiredGas;
+            document.getElementById('requiredGasThirds').textContent = requiredGasWithThirds;
+
+            const sufficiencyCheck = document.getElementById('sufficiencyCheck');
+            if (parseFloat(availableGas) >= parseFloat(requiredGasWithThirds)) {
+                sufficiencyCheck.textContent = "✨ Sufficient gas available! ✨";
+                sufficiencyCheck.style.color = "#4CAF50";
+            } else {
+                sufficiencyCheck.textContent = "💕 Need more gas for safety! 💕";
+                sufficiencyCheck.style.color = "#ff69b4";
+            }
+            
+            createDecorations(25); // Spawn extra decorations on calculation
         }
 
-        // Initial sparkles and characters
-        createSparkles(100);
-        createCharacters(5, '🦄');
-        createCharacters(5, '🐱');
-        setInterval(() => createSparkles(20), 1000);
-        setInterval(() => createCharacters(2, '🦄'), 3000);
-        setInterval(() => createCharacters(2, '🐱'), 3000);
+        // Event Listeners
+        // document.getElementById('ppo2Select').addEventListener('change', function() {
+        //     const customPpo2 = document.getElementById('customPpo2');
+        //     customPpo2.className = this.value === 'custom' ? 'input-group' : 'input-group hidden';
+        // });
+        
+        // Replace the existing ppo2Select event listener with this:
+        document.getElementById('ppo2Select').addEventListener('change', function() {
+            const customPpo2 = document.getElementById('customPpo2');
+            const customPpo2Input = document.getElementById('customPpo2Input');
+    
+            if (this.value === 'custom') {
+                customPpo2.className = 'input-group';
+                customPpo2Input.value = '';
+            } else {
+                customPpo2.className = 'input-group hidden';
+                customPpo2Input.value = this.value;  // This will set the value to 1.4 or 1.6
+            }
+        });
+
+        document.getElementById('tankSelect').addEventListener('change', function() {
+            const customTankFields = document.getElementById('customTankFields');
+            const currentConfig = tankConfigs[this.value];
+            
+            customTankFields.className = this.value === 'custom' ? '' : 'hidden';
+            
+            if (currentConfig) {
+                document.getElementById('customVtank').value = currentConfig.vtank;
+                document.getElementById('customPsiMax').value = currentConfig.psiMax;
+            }
+        });
+
+        document.getElementById('calculateMOD').addEventListener('click', calculateMOD);
+        document.getElementById('calculateGas').addEventListener('click', calculateGas);
+
+        // Start initial decoration animation
+        setInterval(() => createDecorations(10), 2000);
     </script>
 </body>
 </html>
