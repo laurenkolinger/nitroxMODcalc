@@ -237,7 +237,8 @@
     <div class="warning">
         <strong>✨ Safety Note ✨</strong>
         <p>This calculator is for reference only. Always verify calculations with proper equations and tables.
-        Use only with appropriate training and certification level.</p>
+        Use only with appropriate training and certification level./n </p>
+        <strong> ✌🏻©️ Lauren Olinger 2024 ✌🏻 </strong>
     </div>
 
     <script>
@@ -249,17 +250,17 @@
         };
 
         // Create floating decorations
-        function createDecorations(count = 10) {
+        function createDecorations(count = 1) {
             const decorations = ['🦄', '🐱', '✨', '🎀', '🌈', '💕', '🌸'];
             for (let i = 0; i < count; i++) {
                 const decoration = document.createElement('div');
                 decoration.className = 'decoration';
                 decoration.textContent = decorations[Math.floor(Math.random() * decorations.length)];
                 decoration.style.left = Math.random() * 100 + 'vw';
-                decoration.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                decoration.style.animationDuration = (Math.random() * 40 + 2) + 's';
                 document.body.appendChild(decoration);
                 
-                setTimeout(() => decoration.remove(), 5000);
+                setTimeout(() => decoration.remove(), 10000);
             }
         }
 
@@ -360,7 +361,7 @@
         document.getElementById('calculateGas').addEventListener('click', calculateGas);
 
         // Start initial decoration animation
-        setInterval(() => createDecorations(10), 2000);
+        setInterval(() => createDecorations(700), 3000); 
     </script>
 </body>
 </html>
