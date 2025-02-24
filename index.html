@@ -175,7 +175,7 @@
                     <div class="output">
                         <p> MOD = <span id="modFeet">-</span>ft</p>
                     </div>
-                    <p class="equation">MOD = (PPO2 × 33) / (FO2/100)</p>
+                    <p class="equation">MOD = ((PPO2 / FO2) - 1) x 33 feet</p>
                 </div>
             </div>
         </div>
@@ -288,7 +288,7 @@
 
             if (fo2 > 0 && ppo2 > 0) {
                 // Correct MOD calculation
-                const modFeet = (ppo2 * 33) / fo2;
+                const modFeet = ((ppo2/fo2)-1) * 33;
                 document.getElementById('modFeet').textContent = modFeet.toFixed(1);
                 createDecorations(25); // Spawn extra decorations on calculation
             }
